@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# verify：在本地运行全部 pytest（算法单测、API 端到端、20 万窗口性能测试）。
+# 测试使用内存 SQLite，无需启动 PostgreSQL；生产部署用 Docker Compose + PG。
+set -euo pipefail
+
+cd "$(dirname "$0")"
+export DATABASE_URL="sqlite://"
+export PYTHONPATH="$PWD"
+
+exec python3 -m pytest -q "$@"
